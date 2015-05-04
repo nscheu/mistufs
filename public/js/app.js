@@ -6,32 +6,39 @@ app.config(function($routeProvider, $httpProvider) {
      templateUrl: '/views/home.html',
      controller: 'HomeCtrl'
    })
-    .when('/login', {
-    templateUrl: '/views/login/login.html',
-    controller: 'LoginCtrl'
+    .when('/mission', {
+      templateUrl: '/views/mission/mission.html',
+      controller: 'MissionCtrl'
     })
-    .when('/profile', {
-    templateUrl: '/views/profile/profile.html',
-    controller: 'ProfileCtrl',
-      resolve: {
-        loggedin: checkLoggedIn
-      }
+    .when('/contact', {
+      templateUrl: '/views/contact/contact.html',
+      controller: 'ContactCtrl'
     })
-    .when('/pubProfile', {
-      templateUrl: '/views/pubProfile/pubProfile.html',
-      controller: 'pubProfileCtrl',
-      resolve: {
-        loggedin: checkLoggedIn
-      }
-    })
+    
     .when('/register', {
       templateUrl: '/views/register/register.html',
-      controller: 'RegisterCtrl'
+      controller: 'RegisterCtrl',
     })
-    .when('/users', {
-      templateUrl: '/views/users/users.html',
-      controller: 'UsersCtrl'
+    .when('/feed', {
+      templateUrl: '/views/feed/feed.html',
+      controller: 'FeedCtrl',
     })
+    .when('/stuff', {
+      templateUrl: '/views/stuff/stuff.html',
+      controller: 'StuffCtrl',
+    })
+    .when('/friends', {
+      templateUrl: '/views/friends/friends.html',
+      controller: 'FriendsCtrl',
+    })
+    .when('/profile', {
+      templateUrl: '/views/profile/profile.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        loggedin: checkLoggedIn
+      }
+    })
+    
     .otherwise({
       redirectTo: '/'
     });
@@ -78,6 +85,19 @@ var checkLoggedIn = function ($q, $timeout, $http, $location, $rootScope) {
 }
 
 app.controller('NavCtrl', function ($rootScope, $scope, $http, $location) {
+  
+  $scope.login = function (user) {
+    //console.log(user);
+    $http.post('/login', user)
+    .success(function (response) {
+      console.log(response);
+      $rootScope.currentUser = response;
+      //$scope.currentUser = response;
+      $location.url("/profile");
+    });
+  };
+
+
   console.log("NavCtrl Controller");
   $scope.logout = function () {
     $http.post("/logout")
@@ -85,18 +105,11 @@ app.controller('NavCtrl', function ($rootScope, $scope, $http, $location) {
       $rootScope.currentUser = null;
       $location.url("/login");
     });
-  }
+  };
 });
 
 app.controller('HomeCtrl', function($scope) {
-  $scope.openRegisterModal = function () {
-    
-    
-    //$scope.updateUser = user;
-    //$scope.firstname = user.pubData.firstName;
-    //$scope.lastname = user.pubData.lastName;
-    $("#register_modal").modal('show');
-  };
+  
 });
 
 

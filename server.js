@@ -11,33 +11,53 @@ var LocalStrategy = require('passport-local').Strategy;
 var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/mistufs';
 var db = mongoose.connect(connectionString);
 
+var PhoneSchema = new mongoose.Schema({
+  phone_name: String,
+  phone_number: String
+});
+
+var LocationSchema = new mongoose.Schema({
+  location_name: String,
+  location_description: String,
+  location_details: String
+});
+
+var CommentSchema = new mongoose.Schema({
+  srcUserId: String,
+  bodyPublic: String,
+  created: { type: Date, default: Date.now }
+});
+
+
+var ItemSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  location: String
+});
 var UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   roles: [String],
-  publicdata: {
-    firstName: String,
-    lastName: String,
-    address1: String,
-    address2: String,
-    city: String,
-    state: String,
-    zip: String,
-    phone: [
-      {
-        phone_name: String,
-        phone_number: String
-      }]
-  },
-  locations: [{
-    location_name: String,
-    location_description: String,
-    location_details: String
-  }],  
-  pubComments: [
-    { srcUserName: String, bodyPublic: String, created: { type: Date, default: Date.now } }
-  ]
+  firstName: String,
+  lastName: String,
+  address1: String,
+  address2: String,
+  profilePicture: String,
+  city: String,
+  state: String,
+  zip: String,
+
+  friends: [String],
+  phone: [PhoneSchema],
+  locations: [LocationSchema],  
+  pubComments: [CommentSchema],
+  items: [ItemSchema]
+
 });
+
+
+
+
 
 var UserModel = mongoose.model('UserModel', UserSchema);
 
@@ -115,40 +135,6 @@ app.post("/api/updateUser", auth, function (req, res) {
   });
 });
 
-//right now only replaces bookshelf in Mongo - will need to edit for entire schema/etc
-app.post("/api/updateUserFavorites", auth, function (req, res) {
-  console.log("server - updateUser REST");
-  console.log(req.body);
-  UserModel.findOneAndUpdate({ _id: req.body._id }, { bookshelf: req.body.bookshelf }, function (err, user) {
-    if (err) throw err;
-    // we have the updated user returned to us
-    console.log(user);
-    //res.json(user);
-  });
-});
-
-app.get('/rest/pubFavorites', function (req, res) {
-  console.log(req.query._id)
-  UserModel.findOne({ _id: req.query._id }, function (err, user) {
-    //console.log(user.username);
-    if (user) {
-      //console.log(user.bookshelf);
-      res.json(user.bookshelf);
-    }
-    console.log("Unable to Get Favorites");
-  });
-});
-
-app.get('/rest/favorites', auth, function (req, res) {
-  UserModel.findOne({ username: req.user.username }, function (err, user) {
-    //console.log(user.username);
-    if (user) {
-      //console.log(user.bookshelf);
-      res.json(user.bookshelf);
-    }
-    console.log("Unable to Get Favorites");
-  });
-});
 
 app.post('/rest/addComment', auth, function (req, res) {
   console.log("rest/addComment/ req::");
@@ -212,27 +198,6 @@ app.post('/register', function (req, res) {
 });
 
 
-//TODO: CLEAN THIS FUNCTION
-app.post('/saveFavoritesToProfile', function (req, res) {
-  UserModel.findOne({ username: req.user.username }, function (err, user) {
-    if (user) {
-      user.bookshelf = req.body;
-
-      user.bookshelf.forEach(function (entry) {
-        console.log("BOOK ############################")
-        console.log(entry);
-        UserModel.findOneAndUpdate({ username: user.username }, { $addToSet: { bookshelf: entry } }, function (err, user) {
-          if (err) throw err;
-          // we have the updated user returned to us
-          console.log(user);
-        });
-      });
-    }
-    else {
-      res.send(401);
-    }
-  });
-});
 
 app.post('/logout', function (req, res) {
   req.logOut();

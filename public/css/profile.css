@@ -1,5 +1,5 @@
 ﻿.container {
-  float: left;
+  /*float: left;*/
 }
 
 .btn {
@@ -17,7 +17,67 @@
 
 .btn-danger {
   background-color: maroon;
-  border-color: maroon;
+  border-color: #ffcccc;
+}
+
+.external {
+  padding-top: 50px;
+}
+
+.internal-nav {
+  height: 100px;
+  background-color: rgba(50,0,0,0.4);
+  text-align: center;
+}
+
+.internal-nav-photo {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 5;
+  background-color: rgba(50,0,0,0.9);
+
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+  border-radius: 10px;
+
+  height: 80px;
+  width: 80px;
+}
+
+.internal-nav-menu {
+  position: absolute;
+  top: 70px;
+  height: 30px;
+  width: 100%;
+  
+  background-color: rgba(50,0,0,0.6);
+}
+
+.internal-nav-menu-text {
+  white-space: nowrap;
+  position: absolute;
+  left: 100px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;  
+}
+
+.internal-nav-menu-text > a {
+  vertical-align: middle;
+}
+
+.internal-nav-system {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  background-color: rgba(50,0,0,0.9);
+  text-align: right;
+  font-weight: bold;
+}
+.left-text {
+  text-align: left;
 }
 
 .masthead-brand, .cover-heading {
@@ -49,8 +109,8 @@ a:hover {
 }
 
 
-body {
-		padding-top: 50px;
+body {		
+  
 		font-family: Arial, Helvetica, sans-serif;
     color: black;
 	}
@@ -80,23 +140,24 @@ body {
 
 
 table {
-  border: 2px solid orange;
-  border-collapse: collapse;
+  border: 2px solid antiquewhite;
+  /*border-collapse: collapse;*/
+  
   color: antiquewhite;
-  border:none;
+  /*border:none;*/
 }
 
 thead {
-  border: 2px solid orange;
-  border:none;
+  border: 2px solid antiquewhite;
+  /*border:none;*/
 }
 
 tr {
-  border:none;
+  /*border:none;*/
 }
 
 th {
-  border-bottom-color: orange; !important;
+  /*border-bottom-color: orange; !important;*/
   font-weight: bold;
   background: rgba(50, 0, 0, 0.9);
 }
@@ -109,13 +170,14 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  border-bottom-color: orange;
-  border-top-color: orange;
+  /*border-bottom-color: orange;*/
+  /*border-top-color: orange;*/
 }
 
 td {
-  border:none;
-  background: rgba(50, 0, 0, 0.7);
+  /*border:none;*/
+  background: rgba(50, 0, 0, 0.4);
+  border: 1px solid antiquewhite;
 }
 
 #dateDisplay{
@@ -134,6 +196,14 @@ td {
 }
 
 #home_container {
+  text-align: center;
+}
+
+#linkButton {
+  color: white;
+}
+
+#centerText {
   text-align: center;
 }
 
