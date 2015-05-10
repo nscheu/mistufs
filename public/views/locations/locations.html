@@ -1,0 +1,152 @@
+﻿<div id="home_container" class="container">
+
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h4 class="masthead-brand">Welcome {{currentUser.firstName}} {{currentUser.lastName}}</h4>
+            <ul class="nav masthead-nav">
+              <li class="active">
+
+              </li>
+              <li>
+
+              </li>
+              <li>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <h1 class="cover-heading">Locations</h1>
+          
+          
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="nickname" class="col-sm-2 control-label">Nickname</label>
+              <div class="col-sm-10">
+                <input id="nickname" ng-model='location.location_nickname' /><br />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-sm-2 control-label">Description</label>
+              <div class="col-sm-10">
+                <input id="description" ng-model='location.location_description' /><br />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="building" class="col-sm-2 control-label">Building</label>
+              <div class="col-sm-10">
+                <input id="building" ng-model='location.location_building' /><br />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="floor" class="col-sm-2 control-label">Floor</label>
+              <div class="col-sm-10">
+                <input id="floor" ng-model='location.location_floor' /><br />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="room" class="col-sm-2 control-label">Room</label>
+              <div class="col-sm-10">
+                <input id="room" ng-model='location.location_room' /><br />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="shelf" class="col-sm-2 control-label">Shelf</label>
+              <div class="col-sm-10">
+                <input id="shelf" ng-model='location.location_shelf' /><br />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="box" class="col-sm-2 control-label">Box</label>
+              <div class="col-sm-10">
+                <input id="box" ng-model='location.location_box' /><br />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-danger" ng-click='addLocation(location)'>Add Location</button>
+            </div>
+          </form>
+
+          
+          <table class="table-striped">
+            <thead>
+              <tr>
+                <th class="text-center" colspan="8">Locations</th>
+              </tr>
+              <tr>
+                <th>Nickname</th>
+                <th>Description</th>
+                <th>Building</th>
+                <th>Floor</th>
+                <th>Room</th>
+                <th>Shelf</th>
+                <th>Box</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="location in locations">
+                <td>{{location.location_nickname}}</td>
+                <td>{{location.location_description}}</td>
+                <td>{{location.location_building}}</td>
+                <td>{{location.location_floor}}</td>
+                <td>{{location.location_room}}</td>
+                <td>{{location.location_shelf}}</td>
+                <td>{{location.location_box}}</td>
+                <td>
+                  <button class="btn btn-danger" ng-click="">Update</button>
+                  <button class="btn btn-danger" ng-click="">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <p class="lead">
+            <small>Start organizing your life!</small>
+          </p>
+          <p class="lead">
+
+          </p>
+        </div>
+
+        <div class="mastfoot">
+          <div class="inner">
+            <!-- Validation -->
+            <p>
+              <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fbootsnipp.com%2Fiframe%2Fg6GWQ"
+                 target="_blank"><small>HTML</small><sup>5</sup></a>
+            </p>
+            <p>
+              <a href="https://github.com/twbs/bootlint"
+                 target="_blank"><small>Checked with Bootlint</small></a>
+            </p>
+            <p>
+              © 2014 Nick Scheuring ~ <a href="http://getbootstrap.com/">Bootstrap</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

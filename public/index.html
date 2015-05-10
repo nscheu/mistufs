@@ -10,12 +10,15 @@
   <script src="js/angular-route.js"></script>
 
   <script src="js/app.js"></script>
-  <script src="views/login/login.js"></script>
+  
   <script src="views/register/register.js"></script>
   <script src="views/profile/profile.js"></script>
   <script src="views/feed/feed.js"></script>
+  <script src="views/locations/locations.js"></script>
   <script src="views/stuff/stuff.js"></script>
   <script src="views/friends/friends.js"></script>
+  <script src="views/pubProfile/pubProfile.js"></script>
+  <script src="views/pubUsers/pubUsers.js"></script>
   <link href="css/profile.css" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -24,7 +27,7 @@
   <div ng-controller="NavCtrl">
 
 
-
+    
     <header ng-show="!currentUser">
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -42,6 +45,7 @@
                 <li><a href="#/mission">Mission</a></li>
                 <li><a href="#/contact">Contact</a></li>
                 <li><a href="#/register">Register</a></li>
+                <li><a href="#/pubUsers">Users</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
 
@@ -65,27 +69,33 @@
     </header>
 
     <!--Logged In Navigation-->
-    <div ng-show="currentUser">
-      <div class="internal-nav">
-        <div class="internal-nav-system">
-          <a ng-click="logout()" ng-show="currentUser">Logout</a>
-        </div>
-        <div class="internal-nav-photo"></div>
-        <div class="internal-nav-left">
-
-        </div>
-        <div class="internal-nav-menu">
-          <div class="internal-nav-menu-text">
-            <a href="#/feed" ng-show="currentUser">Feed</a>
-            <a href="#/stuff" ng-show="currentUser">Stuff</a>
-            <a href="#/profile" ng-show="currentUser">Profile</a>
-            <a href="#/friends" ng-show="currentUser"><i class="fa-users"></i></a>
+    
+      <div ng-show="currentUser">
+        <div class="internal-nav">
+          <div class="internal-nav-system">
 
           </div>
-        </div>
+          <div class="internal-nav-photo"><img class="profilePhoto" src="{{currentUser.profilePicture}}"></div>
+          <div class="internal-nav-left">
 
+          </div>
+          <div class="internal-nav-menu">
+            <div class="internal-nav-menu-text">
+
+              <a href="#/profile" ng-show="currentUser" class="menu-link"><i class="fa fa-user"></i></a>
+              <a href="#/feed" ng-show="currentUser" class="menu-link"><i class="fa fa-comments"></i></a>
+              <a href="#/locations" ng-show="currentUser" class="menu-link"><i class="fa fa-globe"></i></a>
+              <a href="#/stuff" ng-show="currentUser" class="menu-link"><i class="fa fa-tags"></i></a>
+              <a href="#/friends" ng-show="currentUser" class="menu-link"><i class="fa fa-users"></i></a>
+              <a href ng-click="logout()" ng-show="currentUser" class="menu-link"><i class="fa fa-user-times"></i></a>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
+    
+
+
 
     <div ng-view>
       Hello {{currentuser.firstName}}!

@@ -1,1 +1,105 @@
-﻿<h1>Stuff</h1>
+﻿<div id="home_container" class="container">
+
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h4 class="masthead-brand">Welcome {{currentUser.firstName}} {{currentUser.lastName}}</h4>
+            <ul class="nav masthead-nav">
+              <li class="active">
+
+              </li>
+              <li>
+
+              </li>
+              <li>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <h1 class="cover-heading">Stuff</h1>
+
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="title" class="col-sm-2 control-label">Item Title</label>
+              <div class="col-sm-10">
+                <input id="title" ng-model='item.title' /><br />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-sm-2 control-label">Description</label>
+              <div class="col-sm-10">
+                <input id="description" ng-model='item.description' /><br />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="location" class="col-sm-2 control-label">Location</label>
+              <div class="col-sm-10">
+                <input id="location" ng-model='item.location' /><br />
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-danger" ng-click='addItem(item)'>Add Item</button>
+            </div>
+          </form>
+
+
+          <table class="table-striped">
+            <thead>
+              <tr>
+                <th class="text-center" colspan="4">Items</th>
+              </tr>
+              <tr>
+                <th>Title</th>
+                <th>Desc</th>
+                <th>Location</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in items">
+                <td>{{item.title}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.location}}</td>
+                <td>
+                  <button class="btn btn-danger" ng-click="">Update</button>
+                  <button class="btn btn-danger" ng-click="">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+          <p class="lead">
+            <small>Start organizing your life!</small>
+          </p>
+          <p class="lead">
+
+          </p>
+        </div>
+
+        <div class="mastfoot">
+          <div class="inner">
+            <!-- Validation -->
+            <p>
+              <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fbootsnipp.com%2Fiframe%2Fg6GWQ"
+                 target="_blank"><small>HTML</small><sup>5</sup></a>
+            </p>
+            <p>
+              <a href="https://github.com/twbs/bootlint"
+                 target="_blank"><small>Checked with Bootlint</small></a>
+            </p>
+            <p>
+              © 2014 Nick Scheuring ~ <a href="http://getbootstrap.com/">Bootstrap</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

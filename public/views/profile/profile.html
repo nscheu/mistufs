@@ -1,4 +1,4 @@
-﻿<div id="home_container">
+﻿<div id="home_container" class="container">
 
   <div class="site-wrapper">
     <div class="site-wrapper-inner">
@@ -22,12 +22,12 @@
         <div class="inner cover">
           <h1 class="cover-heading">Profile</h1>
 
-          
-            <table class="">
+          <div class="col-sm-3">
+            <table class="table-striped">
               <thead>
                 <tr>
-
-                  <th colspan="2" id="centerText">User Data</th>
+                  <th><img src="{{currentUser.profilePicture}}" class="profilePhoto" /></th>
+                  <th>User Data</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,45 +39,258 @@
                   <td>First Name</td>
                   <td>{{currentUser.firstName}}</td>
                 </tr>
+
                 <tr>
                   <td>Last Name</td>
                   <td>{{currentUser.lastName}}</td>
+                </tr>
+                
+                
+                <tr>
+                  <td>Address</td>
+                  <td>{{currentUser.address1}}</td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>{{currentUser.address2}}</td>
+                </tr>
+                <tr>
+                  <td>City</td>
+                  <td>{{currentUser.city}}</td>
+                </tr>
+                <tr>
+                  <td>State</td>
+                  <td>{{currentUser.state}}</td>
                 </tr>
                 <tr>
                   <td>ZIP</td>
                   <td>{{currentUser.zip}}</td>
                 </tr>
+                
                 <tr>
-                  <td>UUID</td>
-                  <td>{{currentUser._id}}</td>
+                  <td>Phone</td>
+                  <td>{{currentUser.phone[0].phone_number}}</td>
+                </tr>
+
+                <!--<tr>
+                  <td>Friends</td>
+                  <td>{{currentUser.friends.length}}</td>
                 </tr>
                 <tr>
-                  <td colspan="2" id="centerText"><button class="btn btn-danger">Update</button></td>
+                  <td>Locations</td>
+                  <td>{{currentUser.locations.length}}</td>
+                </tr>
+                <tr>
+                  <td>Comments</td>
+                  <td>{{currentUser.pubComments.length}}</td>
+                </tr>
+
+                <tr>
+                  <td>Items</td>
+                  <td>{{currentUser.items.length}}</td>
+                </tr>
+                <tr>
+                  <td>Requests</td>
+                  <td>{{currentUser.friendRequests.length}}</td>
+                </tr>
+                -->
+                <tr>
+                  <td colspan="2">
+                    <button class="btn btn-danger" style="width: 100%" ng-click="openUpdateUserModal(currentUser)">Update</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
-            
-            <table class="">
+          <!-- </div> -->
+
+          <!--<div class="col-sm-3">-->
+            <table class="table-striped">
+              <thead>
+                <tr><th class="text-center" colspan="4">Items</th></tr>
+                <tr><th colspan="4">
+                      <button class="btn btn-danger" style="width: 100%" ng-click="openAddNewItemModal()">Add Item</button>
+                  </th></tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in items">
+                  <td>
+                    <table>
+                      <tr>
+                        <th>Title</th>
+                        <td>{{item.title}}</td>
+                      </tr>
+                      <tr>
+                        <th>Desc</th>
+                        <td>{{item.description}}</td>
+                      </tr>
+                      <tr>
+                        <th>Location</th>
+                        <td>{{item.location}}</td>
+                      </tr>
+                      <tr>
+                        <th>Actions</th>
+                        <td>
+                          
+                          <button class="btn btn-danger" ng-click="openUpdateItemModal(item)"><i class="fa fa-pencil-square-o"></i></button>
+                          <button class="btn btn-danger" ng-click="deleteItem(item)"><i class="fa fa-times"></i></button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <div class="col-sm-4">
+            <table class="table-striped">
               <thead>
                 <tr>
-                  <th colspan="2">Friends</th>
+                  <th colspan="4">Friends</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>List Here</td>
+                <tr ng-repeat="friend in friends">
+                  <td><img src="{{friend.profilePicture}}" class="profilePhoto" /></td>
+                  <td>{{friend.firstName}} {{friend.lastName}}</td>
+                  
+                  <td><button class="btn btn-danger" ng-controller="PubUsersCtrl" ng-click="viewUser(friend)"><i class="fa fa-eye"></i></button></td>
+                  <td><button class="btn btn-danger" ng-click="unfriend(friend)"><i class="fa fa-minus"></i></button></td>
                 </tr>
               </tbody>
             </table>
+          <!-- </div> -->
 
-          
-          <p class="lead">
-            <small>Start organizing your life!</small>
-          </p>
-          <p class="lead">
+
+         
+          <!--<div class="col-sm-6">-->
+            <table class="table-striped">
+              <thead>
+                <tr>
+                  <th colspan="5" class="text-center">Friend Requests</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="request in friendRequests">
+                  <td>
+
+                    <table>
+                      <tr>
+                        <th>Name</th>
+                        <td>{{request.sourceFirstName}} {{request.sourceLastName}}</td>
+                      </tr>
+                      <tr>
+                        <th>Sent</th>
+                        <td>{{request.dateSent | date:'MM/dd/yyyy @ h:mma'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Actions</th>
+                        <td>
+                          <button class="btn btn-danger" ng-click="approveRequest(request)">Approve</button>
+                          <button class="btn btn-danger" ng-click="denyRequest(request)">Deny</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- </div> -->
+
+          <!--<div class="col-sm-6">-->
+            <table class="table-striped">
+              <thead>
+                <tr>
+                  <th colspan="5" class="text-center">Sent Friend Requests</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="request in sentFriendRequests">
+                  <td>
+
+                    <table>
+                      <tr>
+                        <th>From</th>
+                        <td>{{request.sourceFirstName}}</td>
+                      </tr>
+                      <tr>
+                        <th>To</th>
+                        <td>{{request.recFirstName}}</td>
+                      </tr>
+                      <tr>
+                        <th>From</th>
+                        <td>{{request.sourceFirstName}} {{request.sourceLastName}}</td>
+                      </tr>
+                      <tr>
+                        <th>Sent</th>
+                        <td>{{request.dateSent | date:'MM/dd/yyyy @ h:mma'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Actions</th>
+                        <td>
+                          
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
             
-          </p>
-        </div>
+
+
+          <div class="col-sm-3">
+            <table class="table-striped" ng-show="currentUser.roles[0] == 'admin'">
+              <thead>
+                <tr>
+                  <th class="text-center">User Admin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="user in users" ng-if="user.username != currentUser.username" >
+                  <td>
+                    <table style="width: 100%">
+                      <tbody>
+                        <tr>
+                          <th rowspan="3" class="profilePhoto"><img src="{{user.profilePicture}}" class="profilePhoto"/></th>
+                          <th>{{user.firstName}} {{user.lastName}}</th>
+                        </tr>
+                        <tr>
+                          <td>{{user.city}}
+                        </tr>
+                        <tr>
+                          <td>
+                            {{user.state}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2" class="text-center">
+                            <button class="btn btn-danger" ng-click="openUpdateUserModal(user)"><i class="fa fa-pencil-square-o"></i></button>
+                            <button class="btn btn-danger" ng-click="sendRequest(user)"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-danger" ng-click="delUser(user)"><i class="fa fa-times"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+
+
+
+
+            <p class="lead">
+              <small>Start organizing your life!</small>
+            </p>
+            <p class="lead">
+
+            </p>
+          </div>
 
         <div class="mastfoot">
           <div class="inner">
@@ -98,4 +311,221 @@
       </div>
     </div>
   </div>
+
+
+
+
+  
+
 </div>
+
+
+
+
+
+
+
+<!--Update Modal Below-->
+<div class="modal fade" id="openUpdateUserModal" tabindex="-1" role="dialog" aria-labelledby="openUpdateUserModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Edit User</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form form-horizontal" name="userUpdateForm" id="userUpdate-form">
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="firstName">First Name</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.firstName" id="firstName" name="firstName" type="text" class="form-control" placeholder="{{updateUser.firstName}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="lastName">Last Name</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.lastName" id="lastName" name="lastName" type="text" class="form-control" placeholder="{{updateUser.lastName}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="profilePhoto">Profile Photo</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.profilePicture" id="profilePhoto" name="profilePhoto" type="text" class="form-control" placeholder="{{updateUser.profilePicture}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="address1">Address</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.address1" id="address1" name="address1" type="text" class="form-control" placeholder="{{updateUser.address1}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="address2">Address</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.address2" id="address2" name="address2" type="text" class="form-control" placeholder="{{updateUser.address2}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="city">City</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.city" id="city" name="city" type="text" class="form-control" placeholder="{{updateUser.city}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="state">State</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.state" id="state" name="state" type="text" class="form-control" placeholder="{{updateUser.state}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="zip">ZIP</label>
+            <div class="col-sm-8">
+              <input ng-model="updateUser.zip" id="zip" name="zip" type="text" class="form-control" placeholder="{{updateUser.zip}}" />
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="updateUserInDb(updateUser)" type="button" class="btn btn-primary">Ok</button>
+        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Add New Items Below-->
+<div class="modal fade" id="openAddNewItemModal" tabindex="-1" role="dialog" aria-labelledby="openAddNewItemModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add New Item</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form form-horizontal" name="addNewItemForm" id="userUpdate-form">
+          
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="title">Title</label>
+            <div class="col-sm-8">
+              <input ng-model="item.title" id="title" name="title" type="text" class="form-control"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="description">Description</label>
+            <div class="col-sm-8">
+              <input ng-model="item.description" id="description" name="description" type="text" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="location">Location</label>
+            <div class="col-sm-8">
+              <input ng-model="item.location" id="location" name="location" type="text" class="form-control" />
+            </div>
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="addNewItem(item)" type="button" class="btn btn-primary">Ok</button>
+        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+<!--Add New Items Below-->
+<div class="modal fade" id="openUpdateItemModal" tabindex="-1" role="dialog" aria-labelledby="openUpdateItemModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Update Item</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form form-horizontal" name="addNewItemForm" id="userUpdate-form">
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="title">Title</label>
+            <div class="col-sm-8">
+              <input ng-model="updatedItem.title" id="title" name="title" type="text" class="form-control" placeholder="{{updatedItem.title}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="description">Description</label>
+            <div class="col-sm-8">
+              <input ng-model="updatedItem.description" id="description" name="description" type="text" class="form-control" placeholder="{{updatedItem.description}}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="location">Location</label>
+            <div class="col-sm-8">
+              <input ng-model="updatedItem.location" id="location" name="location" type="text" class="form-control" placeholder="{{updatedItem.location}}" />
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="updateItem(updatedItem)" type="button" class="btn btn-primary">Ok</button>
+        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

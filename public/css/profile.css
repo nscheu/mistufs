@@ -1,4 +1,34 @@
-﻿.container {
+﻿input {
+  color: black;
+}
+
+a:link, a:visited, a:active {
+  color: white;
+	/*color: #ffcccc;*/
+}
+/* mouse over link */
+a:hover {
+    color: #ffB2B2;
+    text-decoration: none;
+}
+
+
+body {		
+  
+		font-family: Arial, Helvetica, sans-serif;
+    //font-size: 9px;
+    color: black;
+	}
+
+	html { 
+ 	 background: url(../img/clark_1990_001_CF_01.jpg) no-repeat center center fixed;
+ 	 -webkit-background-size: cover;
+ 	 -moz-binding: cover;
+ 	 -o-background-size: cover;
+ 	 background-size: cover;
+}
+
+.container {
   /*float: left;*/
 }
 
@@ -17,7 +47,8 @@
 
 .btn-danger {
   background-color: maroon;
-  border-color: #ffcccc;
+  /*border-color: #ffcccc;*/
+  border-color: rgba(255,255,255,0.4);
 }
 
 .external {
@@ -46,6 +77,11 @@
   width: 80px;
 }
 
+.profilePhoto {
+  height: 70px;
+  width: 70px;
+}
+
 .internal-nav-menu {
   position: absolute;
   top: 70px;
@@ -58,15 +94,12 @@
 .internal-nav-menu-text {
   white-space: nowrap;
   position: absolute;
-  left: 100px;
-  font-size: 16px;
-  color: white;
-  font-weight: bold;  
+  left: 105px;
+  font-size: 21px;
+  letter-spacing: 3px;
 }
 
-.internal-nav-menu-text > a {
-  vertical-align: middle;
-}
+
 
 .internal-nav-system {
   position: absolute;
@@ -95,33 +128,7 @@
 	
 }
 
-input {
-  color: black;
-}
 
-i, a:link, a:visited, a:active {
-	color: #ffcccc;
-}
-/* mouse over link */
-a:hover {
-    color: #ffB2B2;
-    text-decoration: none;
-}
-
-
-body {		
-  
-		font-family: Arial, Helvetica, sans-serif;
-    color: black;
-	}
-
-	html { 
- 	 background: url(../img/clark_1990_001_CF_01.jpg) no-repeat center center fixed;
- 	 -webkit-background-size: cover;
- 	 -moz-binding: cover;
- 	 -o-background-size: cover;
- 	 background-size: cover;
-}
 .thumbnail {
 	/* Fallback for web browsers that doesn't support RGBa */
   background: rgb(0, 0, 0);
@@ -140,26 +147,39 @@ body {
 
 
 table {
-  border: 2px solid antiquewhite;
+  /*border: 2px solid antiquewhite;*/
   /*border-collapse: collapse;*/
-  
+  width: 100%;
+  font-size: 10px;
   color: antiquewhite;
   /*border:none;*/
 }
 
 thead {
-  border: 2px solid antiquewhite;
+  /*border: 2px solid antiquewhite;*/
   /*border:none;*/
 }
 
-tr {
-  /*border:none;*/
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+   background-color: rgba(50,0,0,0.2);
 }
 
 th {
   /*border-bottom-color: orange; !important;*/
   font-weight: bold;
   background: rgba(50, 0, 0, 0.9);
+}
+
+.table-striped td:first-child {
+border-left: none;
+}
+
+.table-striped td:last-child {
+border-right: none;
+}
+
+tr {
+  
 }
 
 .table > thead > tr > th,
@@ -170,14 +190,26 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
+  /*border: 1px solid antiquewhite;*/
   /*border-bottom-color: orange;*/
   /*border-top-color: orange;*/
 }
 
 td {
   /*border:none;*/
+  border-bottom: 1px dotted rgba(50,0,0,1);
   background: rgba(50, 0, 0, 0.4);
-  border: 1px solid antiquewhite;
+  border-left: 1px dotted rgba(50,0,0,1);
+  border-right: 1px dotted rgba(50,0,0,1);
+  padding: 5px;
+  /*padding-left: 10px;*/
+  /*border: 1px solid antiquewhite;*/
+}
+
+.td-button {
+  width: 100%;
+  background-color: #600000;
+  font-weight: bold;
 }
 
 #dateDisplay{

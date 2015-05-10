@@ -1,4 +1,102 @@
-﻿<h1>Friends</h1>
+﻿<div id="home_container" class="container">
+
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h4 class="masthead-brand">Welcome {{currentUser.firstName}} {{currentUser.lastName}}</h4>
+            <ul class="nav masthead-nav">
+              <li class="active">
+
+              </li>
+              <li>
+
+              </li>
+              <li>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <h1 class="cover-heading">Find Friends</h1>
+
+
+          <table class="table-striped">
+            <thead>
+              <tr>
+                <th class="text-center" colspan="8">Users</th>
+              </tr>
+              <tr>
+                <th>Source ID</th>
+                <th>Username</th>
+                <th>Picture</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>City</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in users" ng-if="user.username != currentUser.username">
+                <td>{{currentUser._id}}</td>
+                <td>{{user.username}}</td>
+                <td><img src="{{user.profilePicture}}" class="profilePhoto" /></td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.city}}</td>
+                <td>
+                  <button class="btn btn-danger" ng-click="viewUser(user)">View</button>
+                  <button class="btn btn-danger" ng-click="sendRequest(user)">Add Friend</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <p class="lead">
+            <small>Start organizing your life!</small>
+          </p>
+          <p class="lead">
+
+          </p>
+        </div>
+
+        <div class="mastfoot">
+          <div class="inner">
+            <!-- Validation -->
+            <p>
+              <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fbootsnipp.com%2Fiframe%2Fg6GWQ"
+                 target="_blank"><small>HTML</small><sup>5</sup></a>
+            </p>
+            <p>
+              <a href="https://github.com/twbs/bootlint"
+                 target="_blank"><small>Checked with Bootlint</small></a>
+            </p>
+            <p>
+              © 2014 Nick Scheuring ~ <a href="http://getbootstrap.com/">Bootstrap</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <ul>
   <li>

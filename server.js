@@ -17,23 +17,40 @@ var PhoneSchema = new mongoose.Schema({
 });
 
 var LocationSchema = new mongoose.Schema({
-  location_name: String,
+  location_nickname: String,
   location_description: String,
-  location_details: String
+  location_building: String,
+  location_floor: String,
+  location_room: String,
+  location_shelf: String,
+  location_box: String
 });
 
 var CommentSchema = new mongoose.Schema({
   srcUserId: String,
-  bodyPublic: String,
-  created: { type: Date, default: Date.now }
+  sourceFirstName: String,
+  sourceLastName: String,
+  recipient: String,
+  body: String,
+  dateSent: { type: Date, default: Date.now }
 });
-
 
 var ItemSchema = new mongoose.Schema({
   title: String,
   description: String,
   location: String
 });
+
+var FriendRequestSchema = new mongoose.Schema({
+  sourceUserId: String,
+  sourceFirstName: String,
+  sourceLastName: String,
+  recipient: String,
+  recFirstName: String,
+  recLastName: String,
+  dateSent: { type: Date, default: Date.now }
+})
+
 var UserSchema = new mongoose.Schema({
   username: String,
   password: String,
@@ -42,7 +59,7 @@ var UserSchema = new mongoose.Schema({
   lastName: String,
   address1: String,
   address2: String,
-  profilePicture: String,
+  profilePicture: { type: String, default:"/img/default_photo.jpg" },
   city: String,
   state: String,
   zip: String,
@@ -51,7 +68,10 @@ var UserSchema = new mongoose.Schema({
   phone: [PhoneSchema],
   locations: [LocationSchema],  
   pubComments: [CommentSchema],
-  items: [ItemSchema]
+  items: [ItemSchema],
+  friendRequests: [FriendRequestSchema],
+  sentFriendRequests: [FriendRequestSchema],
+  deniedFriendRequests: [FriendRequestSchema]
 
 });
 
@@ -101,20 +121,27 @@ var auth = function (req, res, next) {
     next();
 };
 
-app.get('/hello', function (req, res) {
-  res.send('hello world');
-});
-
 app.get('/loggedin', function (req, res) {
   res.send(req.isAuthenticated() ? req.user : '0');
 });
 
+// Returns all users in DB
+// -> Array of JSON objects (UserSchema)
 app.get('/rest/user', auth, function (req, res) {
   UserModel.find(function (err, users) {
     res.json(users);
   });
 });
 
+//Edit so that returned users public data is all that is returned
+//RIGHT NOW EXPOSES ALL PRIVATE DATA
+app.get('/rest/publicUsers', function (req, res) {
+  UserModel.find(function (err, users) {
+    res.json(users);
+  });
+});
+
+// Deletes the User from the DB
 app.post('/rest/delUser', auth, function (req, res) {
   console.log("server - delUser REST");
   console.log(req.body);
@@ -123,16 +150,79 @@ app.post('/rest/delUser', auth, function (req, res) {
   });
 });
 
-//right now only replaces pubData in Mongo - will need to edit for entire schema/etc
+// Update User
 app.post("/api/updateUser", auth, function (req, res) {
   console.log("server - updateUser REST");
-  console.log(req.body);
-  UserModel.findOneAndUpdate({ _id: req.body._id }, { pubData: req.body.pubData }, function (err, user) {
+  //console.log(req.body);
+   
+  UserModel.update({ _id: req.body._id }, req.body, { upsert: true }, function (err, user) {
     if (err) throw err;
     // we have the updated user returned to us
+    //console.log(user);
+    res.json(user);
+  });
+  
+});
+
+//right now only replaces items
+app.post("/api/updateUserItems", auth, function (req, res) {
+  console.log("server - updateUser REST");
+  console.log(req.body.items);
+  UserModel.findOneAndUpdate({ _id: req.body._id }, { items: req.body.items }, function (err, user) {
+    if (err) throw err;
+    // we have the updated user returned to us
+    console.log("/api/updateUser -- response")
     console.log(user);
+    res.json(user);
+  });
+ 
+});
+
+//right now only replaces locations - Does not return modified user from DB
+app.post("/api/updateUserLocations", auth, function (req, res) {
+  console.log("server - updateUser REST");
+  console.log(req.body.locations);
+  UserModel.findOneAndUpdate({ _id: req.body._id }, { locations: req.body.locations }, function (err, user) {
+    if (err) throw err;
+    // we have the updated user returned to us
+    console.log("/api/updateUser -- response")
+    console.log(user);
+    res.json(user);
+  });
+
+});
+
+
+
+
+//right now only replaces locations
+app.post("/api/sendFriendRequest", auth, function (req, res) {
+  console.log("server - sendFriendRequest REST");
+  //console.log(req.body);
+  var request = req.body;
+  console.log(request);
+  var to = request.sourceUserId;
+  console.log(to);
+  var from = request.recipient;
+  console.log(from);
+
+  //Adds the request to the Users sentFriendRequests array
+  UserModel.findOneAndUpdate({ _id: from }, { $addToSet: { sentFriendRequests: request } }, function (err, user) {
+    if (err) throw err;
+    // we have the updated user returned to us
+    //console.log("/api/updateUser -- response")
+    //console.log(user);
     //res.json(user);
   });
+  // Adds the request to the potential friends friendRequests array
+  UserModel.findOneAndUpdate({ _id: to }, {$addToSet: { friendRequests: request } }, function (err, user) {
+    if (err) throw err;
+    // we have the updated user returned to us
+    console.log("/api/updateUser -- response")
+    //console.log(user);
+    res.json(user);
+  });
+  
 });
 
 
@@ -197,6 +287,25 @@ app.post('/register', function (req, res) {
   console.log(newUser);
 });
 
+app.post('/stuff', function (req, res) {
+  console.log(req.body.username);
+  
+  UserModel.findOne({ username: req.body.username }, function (err, user) {
+    if (user) {
+      var newUser = new UserModel(req.body);
+      newUser.save(function (err, user) {
+        req.login(user, function (err) {
+          if (err) { return next(err); }
+          res.json(user);
+        });
+      });
+    }
+    else {
+      res.send(200);      
+    }
+  });
+  
+});
 
 
 app.post('/logout', function (req, res) {

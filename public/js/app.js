@@ -13,15 +13,26 @@ app.config(function($routeProvider, $httpProvider) {
     .when('/contact', {
       templateUrl: '/views/contact/contact.html',
       controller: 'ContactCtrl'
-    })
-    
+    })    
     .when('/register', {
       templateUrl: '/views/register/register.html',
       controller: 'RegisterCtrl',
     })
+    .when('/pubUsers', {
+      templateUrl: '/views/pubUsers/pubUsers.html',
+      controller: 'PubUsersCtrl',
+    })
+    .when('/pubProfile', {
+       templateUrl: '/views/pubProfile/pubProfile.html',
+       controller: 'PubProfileCtrl',
+     })
     .when('/feed', {
       templateUrl: '/views/feed/feed.html',
       controller: 'FeedCtrl',
+    })
+    .when('/locations', {
+      templateUrl: '/views/locations/locations.html',
+      controller: 'LocationsCtrl',
     })
     .when('/stuff', {
       templateUrl: '/views/stuff/stuff.html',
@@ -31,6 +42,7 @@ app.config(function($routeProvider, $httpProvider) {
       templateUrl: '/views/friends/friends.html',
       controller: 'FriendsCtrl',
     })
+     
     .when('/profile', {
       templateUrl: '/views/profile/profile.html',
       controller: 'ProfileCtrl',
@@ -103,7 +115,7 @@ app.controller('NavCtrl', function ($rootScope, $scope, $http, $location) {
     $http.post("/logout")
     .success(function () {
       $rootScope.currentUser = null;
-      $location.url("/login");
+      $location.url("/");
     });
   };
 });
@@ -130,6 +142,7 @@ app.factory('SecurityService', function ($http, $location, $rootScope) {
     $http.post('/logout')
     .success(function(){
       $rootScope.currentUser = null;
+      $scope.currentUser = null;
       callback();
     })
   }

@@ -1,0 +1,23 @@
+﻿<br />
+<br />
+<br />
+<br />
+<br />
+<div class="col-xs-6 col-md-6 col-lg-6">
+  <div class="thumbnail">
+
+    <table class="table">
+      <tr><th colspan="3" id="tableTitle"><h3>Users</h3></th></tr>
+      <tr ng-repeat="user in users" ng-if="user.username != currentUser.username">
+        <td><img src="{{user.profilePicture}}" class="profilePhoto"/></td>
+        <td>
+          {{user.firstName}} {{user.lastName}}'s public profile
+        </td>
+        <td>
+          <button class="btn btn-danger pull-right" ng-click="viewUser(user)">Visit Profile</button>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+</div>
