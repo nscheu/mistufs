@@ -155,15 +155,28 @@ app.post('/rest/delUser', auth, function (req, res) {
 // Update User
 app.post("/api/updateUser", auth, function (req, res) {
   console.log("server - updateUser REST");
+  //req.body is the new user data
   //console.log(req.body);
+  var id = req.body._id;
+  console.log("ID == %s", id);
+  console.log("Body == ");
+  console.log(req.body);
+  delete req.body._id;
+  console.log("Body == (NOID) ");
+  console.log(req.body);
+  UserModel.update({ _id: id }, req.body, function (err, user) {
+    if (err) throw err;
+    //console.log(user);
+    
+  });
    
-  UserModel.update({ _id: req.body._id }, req.body, { upsert: true }, function (err, user) {
+  /*UserModel.update({ _id: req.body._id }, req.body, { upsert: true }, function (err, user) {
     if (err) throw err;
     // we have the updated user returned to us
     //console.log(user);
     res.json(user);
   });
-  
+  */
 });
 
 //right now only replaces items
