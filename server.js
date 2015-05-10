@@ -310,7 +310,7 @@ app.post('/stuff', function (req, res) {
 
 app.post('/logout', function (req, res) {
   req.logOut();
-  res.send(200);
+  res.sendStatus(200);
 });
 
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
