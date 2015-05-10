@@ -9,6 +9,8 @@ var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 
 var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/mistufs';
+console.log("CONNECTION STRING");
+console.log(connectionString);
 var db = mongoose.connect(connectionString);
 
 var PhoneSchema = new mongoose.Schema({
